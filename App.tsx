@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -7,21 +7,38 @@ import {
   View,
   TextInput,
   Pressable,
+  Alert
 
 } from 'react-native';
 import Header from './src/components/Header';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
+import ControlPresupuesto from './src/components/ControlPresupuesto';
 
 
 
 function App(): JSX.Element {
+
+  const [isValidPresupuesto, setIsValidPresupuesto] = useState(false)
   
+  const handleNuevoPresupuesto = (presupueto) =>{
+    if(Number(presupueto)>0){
+      setIsValidPresupuesto(true)
+    }
+    else{
+      Alert.alert('Error','El Presupuesto no es Valido',[{text:'Ok'}])
+    }
+  }
 
   return (
     <SafeAreaView style={styles.contenedor}>
       <View style={styles.header}>
         <Header />
-        <NuevoPresupuesto />
+        {isValidPresupuesto ? (
+        <ControlPresupuesto />) : (
+        <NuevoPresupuesto
+          handleNuevoPresupuesto={handleNuevoPresupuesto}
+        />) }
+        
       </View>
       
     </SafeAreaView>
