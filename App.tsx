@@ -18,10 +18,14 @@ import ControlPresupuesto from './src/components/ControlPresupuesto';
 
 function App(): JSX.Element {
 
+  const [presupuesto,setPresupuesto] = useState(0)
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false)
+  const [gastos, setGastos] = useState([
+  ])
+
   
-  const handleNuevoPresupuesto = (presupueto) =>{
-    if(Number(presupueto)>0){
+  const handleNuevoPresupuesto = (presupuesto) =>{
+    if(Number(presupuesto)>0){
       setIsValidPresupuesto(true)
     }
     else{
@@ -34,9 +38,14 @@ function App(): JSX.Element {
       <View style={styles.header}>
         <Header />
         {isValidPresupuesto ? (
-        <ControlPresupuesto />) : (
+        <ControlPresupuesto
+          presupuesto={presupuesto}
+          gastos={gastos}
+        />) : (
         <NuevoPresupuesto
           handleNuevoPresupuesto={handleNuevoPresupuesto}
+          presupuesto={presupuesto}
+          setPresupuesto={setPresupuesto}
         />) }
         
       </View>
