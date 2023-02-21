@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Text, SafeAreaView, View, TextInput, StyleSheet, Pressable} from 'react-native'
-import {Picker} from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker'
 import globalStyles from '../styles'
 
 const FormularioGasto = ({
