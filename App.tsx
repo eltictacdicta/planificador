@@ -7,12 +7,15 @@ import {
   View,
   TextInput,
   Pressable,
-  Alert
+  Alert,
+  Image,
+  Modal
 
 } from 'react-native';
 import Header from './src/components/Header';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import ControlPresupuesto from './src/components/ControlPresupuesto';
+import FormularioGasto from './src/components/FormularioGasto';
 
 
 
@@ -20,8 +23,8 @@ function App(): JSX.Element {
 
   const [presupuesto,setPresupuesto] = useState(0)
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false)
-  const [gastos, setGastos] = useState([
-  ])
+  const [gastos, setGastos] = useState([])
+  const [modal, setModal] = useState(false)
 
   
   const handleNuevoPresupuesto = (presupuesto) =>{
@@ -49,6 +52,28 @@ function App(): JSX.Element {
         />) }
         
       </View>
+
+
+      {modal &&(
+        <Modal
+          animationType='slide'
+          visible={modal}
+        >
+          <FormularioGasto/>
+        </Modal>
+      )}
+
+      {isValidPresupuesto &&(
+        <Pressable 
+          style={styles.pressable}
+          onPress={()=> setModal(!modal)}
+        >
+          <Image style={styles.imagen}
+            source={require('./src/img/nuevo-gasto.png')}
+          />
+        </Pressable>
+      )}
+      
       
     </SafeAreaView>
   );
