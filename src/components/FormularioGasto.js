@@ -4,43 +4,63 @@ import {Picker} from '@react-native-picker/picker'
 import globalStyles from '../styles'
 
 const FormularioGasto = ({
-    
+    setModal
 }) => {
+    const [nombre, setNombre] = useState('')
+    const [cantidad, setCantidad] = useState('')
+    const [categoria, setCategoria] = useState('')
     
 
     return (
         <SafeAreaView style={styles.contenedor}>
             <View style={styles.contenedorBotones}>
-                <Pressable>
-                    <Text>X Cancelar</Text>
+                <Pressable style={[styles.btnCancelar,styles.btn]}>
+                    <Text 
+                    style={styles.btnTexto}
+                    onLongPress={()=>setModal(false)}
+                    >X Cancelar</Text>
                 </Pressable>
-                <View>
-                    <Text>Nombre Gasto</Text>
-                    <TextInput
-                        placeholder='Nombre del gasto'
-                    />
-                </View>
-
-                <View>
-                    <Text>Cantidad del Gasto</Text>
-                    <TextInput
-                        placeholder='Cantidad del gasto'
-                        keyboardType='numeric'
-                    />
-                </View>
-
-                <View>
-                    <Text>Categoría del gasto del Gasto</Text>
-                    <Picker>
-                        <Picker.Item label='-- Selecciona una opción --' value="" />
-                        <Picker.Item label='Ahorro' value="ahorro" />
-                    </Picker>
-                </View>
-
+                
             </View>    
 
             <View style={styles.formulario}>
-                
+            <Text style={styles.titulo}>Nuevo Gasto</Text>
+                <View style={styles.campo}>
+                    <Text style={styles.label}>Nombre Gasto</Text>
+                    <TextInput style={styles.input}
+                        placeholder='Nombre del gasto'
+                        value={nombre}
+                        onChangeText={setNombre}
+                    />
+                </View>
+
+                <View style={styles.campo}>                    
+                <Text style={styles.label}>Cantidad del Gasto</Text>
+                    <TextInput style={styles.input}
+                        placeholder='Cantidad del gasto'
+                        keyboardType='numeric'
+                        value={cantidad}
+                        onChangeText={setCantidad}
+                    />
+                </View>
+
+                <View>
+                    <Text style={styles.label}>Categoría del gasto del Gasto</Text>
+                    <Picker 
+                    selectedValue={categoria}
+                    onValueChange={(itemValue)=>setCategoria(itemValue)}
+                    style={styles.inputPicker}>
+                        <Picker.Item label='-- Selecciona una opción --' value="" />
+                        <Picker.Item label='Ahorro' value="ahorro" />
+                        <Picker.Item label='Comida' value="comida" />
+                        <Picker.Item label='Casa' value="casa" />
+                        <Picker.Item label='Gastos varios' value="varios" />
+                        <Picker.Item label='Ocio' value="ocio" />
+                        <Picker.Item label='Salud' value="salud" />
+                        <Picker.Item label='Subcripciones' value="subcripciones" />
+                    </Picker>
+                </View>
+                <Pressable style={styles.submitBtn}><Text style={styles.btnTexto}>Agregar gasto</Text></Pressable>
                 
             </View>
         </SafeAreaView>
@@ -95,6 +115,12 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#F5F5F5',
         padding: 10,
+        borderRadius: 10,
+        marginTop: 10
+    }
+    ,
+    inputPicker: {
+        backgroundColor: '#F5F5F5',
         borderRadius: 10,
         marginTop: 10
     },

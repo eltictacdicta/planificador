@@ -59,7 +59,9 @@ function App(): JSX.Element {
           animationType='slide'
           visible={modal}
         >
-          <FormularioGasto/>
+          <FormularioGasto
+            setModal={setModal}
+          />
         </Modal>
       )}
 
