@@ -16,6 +16,7 @@ import Header from './src/components/Header';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto';
+import { generarId } from './src/helpers';
 
 
 function App(): JSX.Element {
@@ -40,10 +41,12 @@ function App(): JSX.Element {
       Alert.alert(
         'Error','Todos los campos son obligatorios',[{text:'OK'}]
       )
+      return
     }
-    else{
-      console.log('Todos los campos rellenos')
-    }
+    //Añadimos gasto
+    gasto.id = generarId()
+    setGastos([...gastos, gasto])
+    setModal(!modal)
   }
 
   return (
@@ -62,7 +65,9 @@ function App(): JSX.Element {
         />) }
         
       </View>
-
+      {isValidPresupuesto &&(
+        <Text>Gastos</Text>
+      )}
 
       {modal &&(
         <Modal
