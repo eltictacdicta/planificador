@@ -3,13 +3,14 @@ import { Text, SafeAreaView, View, TextInput, StyleSheet, Pressable} from 'react
 import {Picker} from '@react-native-picker/picker'
 import globalStyles from '../styles'
 
+
 const FormularioGasto = ({
-    setModal
+    setModal,
+    handleGasto
 }) => {
     const [nombre, setNombre] = useState('')
     const [cantidad, setCantidad] = useState('')
     const [categoria, setCategoria] = useState('')
-    
 
     return (
         <SafeAreaView style={styles.contenedor}>
@@ -60,7 +61,10 @@ const FormularioGasto = ({
                         <Picker.Item label='Subcripciones' value="subcripciones" />
                     </Picker>
                 </View>
-                <Pressable style={styles.submitBtn}><Text style={styles.btnTexto}>Agregar gasto</Text></Pressable>
+                <Pressable 
+                    style={styles.submitBtn}
+                    onPress={()=>handleGasto({nombre,cantidad,categoria})}
+                ><Text style={styles.btnTexto}>Agregar gasto</Text></Pressable>
                 
             </View>
         </SafeAreaView>

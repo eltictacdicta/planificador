@@ -18,7 +18,6 @@ import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto';
 
 
-
 function App(): JSX.Element {
 
   const [presupuesto,setPresupuesto] = useState(0)
@@ -27,12 +26,23 @@ function App(): JSX.Element {
   const [modal, setModal] = useState(false)
 
   
-  const handleNuevoPresupuesto = (presupuesto) =>{
+  const handleNuevoPresupuesto = presupuesto =>{
     if(Number(presupuesto)>0){
       setIsValidPresupuesto(true)
     }
     else{
       Alert.alert('Error','El Presupuesto no es Valido',[{text:'Ok'}])
+    }
+  }
+
+  const handleGasto = gasto =>{
+    if(Object.values(gasto).includes('')){
+      Alert.alert(
+        'Error','Todos los campos son obligatorios',[{text:'OK'}]
+      )
+    }
+    else{
+      console.log('Todos los campos rellenos')
     }
   }
 
@@ -61,6 +71,7 @@ function App(): JSX.Element {
         >
           <FormularioGasto
             setModal={setModal}
+            handleGasto={handleGasto}
           />
         </Modal>
       )}
