@@ -16,6 +16,7 @@ import Header from './src/components/Header';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto';
+import ListadoGastos from './src/components/ListadoGastos';
 import { generarId } from './src/helpers';
 
 
@@ -51,24 +52,28 @@ function App(): JSX.Element {
 
   return (
     <SafeAreaView style={styles.contenedor}>
-      <View style={styles.header}>
-        <Header />
-        {isValidPresupuesto ? (
-        <ControlPresupuesto
-          presupuesto={presupuesto}
-          gastos={gastos}
-        />) : (
-        <NuevoPresupuesto
-          handleNuevoPresupuesto={handleNuevoPresupuesto}
-          presupuesto={presupuesto}
-          setPresupuesto={setPresupuesto}
-        />) }
+      <ScrollView>
+        <View style={styles.header}>
+          <Header />
+          {isValidPresupuesto ? (
+          <ControlPresupuesto
+            presupuesto={presupuesto}
+            gastos={gastos}
+          />) : (
+          <NuevoPresupuesto
+            handleNuevoPresupuesto={handleNuevoPresupuesto}
+            presupuesto={presupuesto}
+            setPresupuesto={setPresupuesto}
+          />) }
+          
+        </View>
         
-      </View>
-      {isValidPresupuesto &&(
-        <Text>Gastos</Text>
-      )}
-
+        {isValidPresupuesto &&(
+          <ListadoGastos
+            gastos={gastos}
+          />
+        )}
+      </ScrollView>
       {modal &&(
         <Modal
           animationType='slide'
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
   },
   header: {
       backgroundColor: '#3B82F6',
-      //minHeight: 400
+      minHeight: 500
   },
   pressable: {
     width: 60,

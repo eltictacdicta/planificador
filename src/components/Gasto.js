@@ -13,32 +13,21 @@ const diccionarioIconos = {
     suscripciones: require('../img/icono_suscripciones.png'),
 }
 
-const Gasto = ({gasto, setModal, setGasto }) => {
+const Gasto = ({gasto}) => {
     const { nombre, categoria, cantidad, fecha } = gasto
 
     const handleAcciones = () => {
         setModal(true)
         setGasto(gasto)
     }
-
+    console.log(gasto.nombre)
     return (
         <Pressable
             onLongPress={handleAcciones}
         >
             <View style={styles.contenedor}>
                 <View style={styles.contenido}>
-                    <View style={styles.contenedorImagen}>
-                        <Image  
-                            style={styles.imagen}
-                            source={diccionarioIconos[categoria]}
-                        />
-                        <View style={styles.contenedorTexto}>
-                            <Text style={styles.categoria}>{categoria}</Text>
-                            <Text style={styles.nombre}>{nombre}</Text>
-                            <Text style={styles.fecha}>{formatearFecha(fecha)}</Text>
-                        </View>
-                    </View>
-                    <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
+                    <Text> {nombre}</Text>
                 </View>
             </View>
         </Pressable>
@@ -48,7 +37,7 @@ const Gasto = ({gasto, setModal, setGasto }) => {
 const styles = StyleSheet.create({
     contenedor: {
       ...globalStyles.contenedor,
-      marginBottom: 20
+      marginBottom: 20,
     },
     contenido: {
         flexDirection: 'row',
