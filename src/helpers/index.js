@@ -1,8 +1,8 @@
 export const formatearCantidad = cantidad =>{
-    return Number(cantidad).toLocaleString('en-US',
+    return Number(cantidad).toLocaleString('es-ES',
     {
         style: 'currency',
-        currency: 'USD'
+        currency: 'EUR'
     })
 }
 

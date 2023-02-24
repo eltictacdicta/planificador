@@ -50,7 +50,7 @@ const FormularioGasto = ({
                         style={styles.btnTexto}
                         onLongPress={()=>{
                             eliminarGasto(id)
-                            //setModal(false)
+                            setModal(false)
                         }}
                         >X Eliminar</Text>
                     </Pressable>
@@ -89,14 +89,14 @@ const FormularioGasto = ({
                     selectedValue={categoria}
                     onValueChange={(itemValue)=>setCategoria(itemValue)}
                     style={styles.inputPicker}>
-                        <Picker.Item label='-- Selecciona una opción --' value="" />
+                    <Picker.Item label='-- Selecciona una opción --' value="" />
                         <Picker.Item label='Ahorro' value="ahorro" />
                         <Picker.Item label='Comida' value="comida" />
                         <Picker.Item label='Casa' value="casa" />
                         <Picker.Item label='Gastos varios' value="gastos" />
                         <Picker.Item label='Ocio' value="ocio" />
                         <Picker.Item label='Salud' value="salud" />
-                        <Picker.Item label='Subcripciones' value="subcripciones" />
+                        <Picker.Item label='Suscripciones' value="suscripciones" />
                     </Picker>
                 </View>
                 <Pressable 
@@ -162,9 +162,7 @@ const styles = StyleSheet.create({
     }
     ,
     inputPicker: {
-        backgroundColor: '#F5F5F5',
-        borderRadius: 10,
-        marginTop: 10
+       ...globalStyles.inputPicker
     },
     submitBtn: {
         backgroundColor: '#3B82F6',

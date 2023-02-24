@@ -14,6 +14,11 @@ const globalStyles = {
         shadowOpacity: 0.23,
         shadowRadius: 2.62,
         elevation: 5,
+    },
+    inputPicker:{
+        backgroundColor: '#F5F5F5',
+        borderRadius: 10,
+        marginTop: 10
     }
 }
 
