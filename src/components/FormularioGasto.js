@@ -6,11 +6,30 @@ import globalStyles from '../styles'
 
 const FormularioGasto = ({
     setModal,
-    handleGasto
+    handleGasto,
+    setGasto,
+    gasto,
+    eliminarGasto
 }) => {
     const [nombre, setNombre] = useState('')
     const [cantidad, setCantidad] = useState('')
     const [categoria, setCategoria] = useState('')
+    const [id, setId] = useState('')
+    const [fecha, setFecha] = useState('')
+
+
+    useEffect(()=>{
+        if(gasto?.nombre){
+            setNombre(gasto.nombre)
+            setCantidad(gasto.cantidad)
+            setCategoria(gasto.categoria)
+            setId(gasto.id)
+            setFecha(gasto.fecha)
+        }
+        
+    },[gasto])
+
+    
 
     return (
         <SafeAreaView style={styles.contenedor}>
@@ -18,14 +37,33 @@ const FormularioGasto = ({
                 <Pressable style={[styles.btnCancelar,styles.btn]}>
                     <Text 
                     style={styles.btnTexto}
-                    onLongPress={()=>setModal(false)}
+                    onLongPress={()=>{
+                        setModal(false)
+                        setGasto({})
+                    }}
                     >X Cancelar</Text>
                 </Pressable>
+                {gasto?.nombre &&
+                (
+                    <Pressable style={[styles.btnEliminar,styles.btn]}>
+                        <Text 
+                        style={styles.btnTexto}
+                        onLongPress={()=>{
+                            eliminarGasto(id)
+                            //setModal(false)
+                        }}
+                        >X Eliminar</Text>
+                    </Pressable>
+                )}
+                    
                 
             </View>    
 
             <View style={styles.formulario}>
-            <Text style={styles.titulo}>Nuevo Gasto</Text>
+            <Text style={styles.titulo}>
+                {gasto?.nombre? 'Editar ':'Nuevo '} 
+                Gasto
+            </Text>
                 <View style={styles.campo}>
                     <Text style={styles.label}>Nombre Gasto</Text>
                     <TextInput style={styles.input}
@@ -55,7 +93,7 @@ const FormularioGasto = ({
                         <Picker.Item label='Ahorro' value="ahorro" />
                         <Picker.Item label='Comida' value="comida" />
                         <Picker.Item label='Casa' value="casa" />
-                        <Picker.Item label='Gastos varios' value="varios" />
+                        <Picker.Item label='Gastos varios' value="gastos" />
                         <Picker.Item label='Ocio' value="ocio" />
                         <Picker.Item label='Salud' value="salud" />
                         <Picker.Item label='Subcripciones' value="subcripciones" />
@@ -63,8 +101,8 @@ const FormularioGasto = ({
                 </View>
                 <Pressable 
                     style={styles.submitBtn}
-                    onPress={()=>handleGasto({nombre,cantidad,categoria})}
-                ><Text style={styles.btnTexto}>Agregar gasto</Text></Pressable>
+                    onPress={()=>handleGasto({nombre,cantidad,categoria, id, fecha})}
+                ><Text style={styles.btnTexto}>{gasto?.nombre? 'Cambiar ':'Agregar '}gasto</Text></Pressable>
                 
             </View>
         </SafeAreaView>

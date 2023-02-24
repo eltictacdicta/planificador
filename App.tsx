@@ -26,6 +26,7 @@ function App(): JSX.Element {
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false)
   const [gastos, setGastos] = useState([])
   const [modal, setModal] = useState(false)
+  const [gasto, setGasto] = useState({})
 
   
   const handleNuevoPresupuesto = presupuesto =>{
@@ -38,16 +39,34 @@ function App(): JSX.Element {
   }
 
   const handleGasto = gasto =>{
-    if(Object.values(gasto).includes('')){
+    if([gasto.nombre, gasto.categoria, gasto.cantidad].includes('')){
       Alert.alert(
         'Error','Todos los campos son obligatorios',[{text:'OK'}]
       )
       return
     }
     //Añadimos gasto
-    gasto.id = generarId()
-    setGastos([...gastos, gasto])
+    if(gasto.id)
+    {
+      const gastosActualizados = gastos.map(gastoSetate => gastoSetate.id === gasto.id ? gasto : gastoSetate)
+      setGastos(gastosActualizados)
+    }else{
+      gasto.id = generarId()
+      gasto.fecha = Date.now()
+      setGastos([...gastos, gasto])
+    }
     setModal(!modal)
+  }
+
+  const eliminarGasto = id =>{
+    Alert.alert('¿Deseas eliminar este gasto?', 
+    'Un gasto eliminado no se puede eliminar',
+    [
+      {text: 'No', style: 'cancel'},
+      { text: 'Si, Eliminar', onPress:()=>{
+        console.log('eliminando ', id)
+      }}
+    ])
   }
 
   return (
@@ -71,6 +90,8 @@ function App(): JSX.Element {
         {isValidPresupuesto &&(
           <ListadoGastos
             gastos={gastos}
+            setModal={setModal}
+            setGasto={setGasto}
           />
         )}
       </ScrollView>
@@ -82,6 +103,9 @@ function App(): JSX.Element {
           <FormularioGasto
             setModal={setModal}
             handleGasto={handleGasto}
+            gasto={gasto}
+            setGasto={setGasto}
+            eliminarGasto={eliminarGasto}
           />
         </Modal>
       )}
